@@ -4,21 +4,19 @@
 [ext_resource path="res://Character.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=3]
 
-[sub_resource type="LineShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 540, 10 )
 
 [node name="World" type="Node2D"]
 
 [node name="Platform" parent="." instance=ExtResource( 1 )]
 position = Vector2( 565.785, 1751.28 )
-length = 3
 
 [node name="Platform2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 689.836, 1611.87 )
-length = 3
 
 [node name="Platform3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 447.235, 1454.41 )
-length = 3
 
 [node name="Character" parent="." instance=ExtResource( 2 )]
 position = Vector2( 447.744, 1319.75 )
