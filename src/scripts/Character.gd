@@ -1,12 +1,16 @@
 extends KinematicBody2D
 
 const GRAVITY = 1500.0
-const WALK_SPEED = 200
-var velocity = Vector2()
+const WALK_SPEED = 400
+var velocity = Vector2(WALK_SPEED, 0)
 var falling = true
+var jump = false
 
 func _physics_process(delta):
-
+	
+	if is_on_wall():
+		velocity.x *= -1
+		
 	if is_on_floor():
 		velocity.y = 100
 		falling = false
@@ -14,17 +18,10 @@ func _physics_process(delta):
 		velocity.y += delta * GRAVITY
 		falling = true
 
-	# Move right / left
-	if Input.is_action_pressed("ui_left"):
-		velocity.x = -WALK_SPEED
-	elif Input.is_action_pressed("ui_right"):
-		velocity.x =  WALK_SPEED
-	else:
-		velocity.x = 0
-
 	# Jump
-	if Input.is_action_pressed('ui_up') and is_on_floor():
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and (is_on_floor() or is_on_wall()):
 		velocity.y -= 800
+		jump = false
 	
 
     # We don't need to multiply velocity by delta because "move_and_slide" already takes delta time into account.
