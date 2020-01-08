@@ -20,6 +20,8 @@ func _ready():
 func length_platform_set(new_length):
 	length_platform = new_length
 	
+	$StaticBody2D/CollisionShape2D.scale.x = new_length
+	
 	for n in $Picture.get_children():
 		$Picture.remove_child(n)
 	

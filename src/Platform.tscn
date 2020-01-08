@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/Platform.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 105, 35 )
+extents = Vector2( 35, 35 )
 
 [node name="Platform" type="Node2D"]
 script = ExtResource( 1 )
