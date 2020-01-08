@@ -13,7 +13,6 @@ func _physics_process(delta):
 	else:
 		velocity.y += delta * GRAVITY
 		falling = true
-	print(falling)
 
 	# Move right / left
 	if Input.is_action_pressed("ui_left"):
