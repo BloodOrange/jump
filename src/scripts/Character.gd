@@ -28,6 +28,7 @@ func _physics_process(delta):
 				velocity.y = 0
 			velocity.y += delta * GRAVITY * 0.3
 		else:
+			jump = true
 			grip = false
 			velocity.y += delta * GRAVITY
 			falling = true
