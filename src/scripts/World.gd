@@ -7,7 +7,7 @@ extends Node2D
 const NB_PLATFORMS = 15
 const PLATFORM_SPACE = 160
 
-export var speed_fallen = 100
+export var speed_fallen = 60
 
 var start_game_delay = 3
 var start_game = false
