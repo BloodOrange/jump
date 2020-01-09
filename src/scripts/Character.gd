@@ -5,24 +5,43 @@ const WALK_SPEED = 400
 var velocity = Vector2(WALK_SPEED, 0)
 var falling = true
 var jump = false
+var grip = false
 
 func _physics_process(delta):
 	
-	if is_on_wall():
-		velocity.x *= -1
-		
 	if is_on_floor():
+		grip = false
 		velocity.y = 100
 		falling = false
+		if is_on_wall():
+			velocity.x *= -1
 	else:
-		velocity.y += delta * GRAVITY
-		falling = true
-
+		if is_on_wall():
+			if velocity.x > 0:
+				grip = 'right'
+			else:
+				grip = 'left'
+			falling = false
+			if velocity.y < 0:
+				velocity.y = 0
+			velocity.y += delta * GRAVITY * 0.3
+		else:
+			grip = false
+			velocity.y += delta * GRAVITY
+			falling = true
+			
 	# Jump
-	if Input.is_mouse_button_pressed(BUTTON_LEFT) and (is_on_floor() or is_on_wall()):
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and (is_on_floor() or is_on_wall()) and jump == false:
 		velocity.y -= 800
+		jump = true
+		if is_on_wall():
+			if grip == 'left':
+				velocity.x = WALK_SPEED
+			elif grip == 'right':
+				velocity.x = -WALK_SPEED
+
+	if !Input.is_mouse_button_pressed(BUTTON_LEFT):
 		jump = false
-	
 
     # We don't need to multiply velocity by delta because "move_and_slide" already takes delta time into account.
 
@@ -33,11 +52,20 @@ func _physics_process(delta):
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Animation
+	$AnimatedSprite.rotation_degrees = 0
 	if falling:
 		$AnimatedSprite.animation = "jump"
 		if velocity.x > 0:
 			$AnimatedSprite.flip_h = false
 		elif velocity.x < 0:
+			$AnimatedSprite.flip_h = true
+	elif grip:
+		$AnimatedSprite.animation = "grip"
+		if grip == 'right':
+			$AnimatedSprite.rotation_degrees = -90
+			$AnimatedSprite.flip_v = false
+		elif grip == 'left':
+			$AnimatedSprite.rotation_degrees = 90
 			$AnimatedSprite.flip_h = true
 	else:
 		if velocity.x != 0:
