@@ -11,7 +11,7 @@ const GRASS_RIGHT = preload("res://assets/Tiles/grassHalfRight.png")
 
 const BLOCK_SIZE = 70
 
-export var length_platform = 2 setget length_platform_set, length_platform_get
+export var length_platform = 0 setget length_platform_set, length_platform_get
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
