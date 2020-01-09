@@ -8,6 +8,7 @@ var velocity = Vector2(WALK_SPEED, 0)
 var falling = true
 var jump = false
 var grip = false
+var grip_side
 var run = false
 
 func run():
@@ -25,15 +26,17 @@ func _physics_process(delta):
 			velocity.x *= -1
 	else:
 		if is_on_wall():
+			grip = true
 			if velocity.x > 0:
-				grip = 'right'
+				grip_side = 'right'
 			else:
-				grip = 'left'
+				grip_side = 'left'
 			falling = false
 			if velocity.y < 0:
 				velocity.y = 0
 			velocity.y += delta * GRAVITY * 0.3
 		else:
+			jump = true
 			grip = false
 			velocity.y += delta * GRAVITY
 			falling = true
@@ -43,9 +46,9 @@ func _physics_process(delta):
 		velocity.y -= 800
 		jump = true
 		if is_on_wall():
-			if grip == 'left':
+			if grip_side == 'left':
 				velocity.x = WALK_SPEED
-			elif grip == 'right':
+			elif grip_side == 'right':
 				velocity.x = -WALK_SPEED
 
 	if !Input.is_mouse_button_pressed(BUTTON_LEFT):
@@ -75,10 +78,10 @@ func _process(delta):
 			$AnimatedSprite.flip_h = true
 	elif grip:
 		$AnimatedSprite.animation = "grip"
-		if grip == 'right':
+		if grip_side == 'right':
 			$AnimatedSprite.rotation_degrees = -90
 			$AnimatedSprite.flip_v = false
-		elif grip == 'left':
+		elif grip_side == 'left':
 			$AnimatedSprite.rotation_degrees = 90
 			$AnimatedSprite.flip_h = true
 	else:
