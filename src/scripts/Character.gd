@@ -1,13 +1,21 @@
 extends KinematicBody2D
 
+signal on_platform_run
+
 const GRAVITY = 1500.0
 const WALK_SPEED = 400
 var velocity = Vector2(WALK_SPEED, 0)
 var falling = true
 var jump = false
 var grip = false
+var run = false
+
+func run():
+	run = true
 
 func _physics_process(delta):
+	if run == false:
+		return
 	
 	if is_on_floor():
 		grip = false
@@ -48,6 +56,12 @@ func _physics_process(delta):
     # The second parameter of "move_and_slide" is the normal pointing up.
     # In the case of a 2D platformer, in Godot, upward is negative y, which translates to -1 as a normal.
 	move_and_slide(velocity, Vector2(0, -1))
+	
+	for i in get_slide_count():
+		var collision = get_slide_collision(i)
+		var node = collision.collider.get_parent()
+		if not node.get("number") == null:
+			emit_signal("on_platform_run", node.number)
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

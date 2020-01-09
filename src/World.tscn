@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Platform.tscn" type="PackedScene" id=2]
@@ -14,6 +14,13 @@ font_path = "res://assets/Fonts/kenpixel.ttf"
 [sub_resource type="DynamicFont" id=3]
 size = 100
 font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://assets/Fonts/kenpixel.ttf"
+
+[sub_resource type="DynamicFont" id=5]
+size = 100
+font_data = SubResource( 4 )
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -40,17 +47,21 @@ position = Vector2( 540, 2000 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Underground/StaticBody2D"]
 shape = SubResource( 1 )
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-visible = false
+[node name="BtnStart" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_right = 1080.0
 margin_bottom = 1920.0
-
-[node name="Label" type="Label" parent="CenterContainer"]
-margin_left = 351.0
-margin_top = 884.0
-margin_right = 728.0
-margin_bottom = 1035.0
 custom_fonts/font = SubResource( 3 )
 text = "Start"
-align = 1
+flat = true
+
+[node name="Score" type="Label" parent="."]
+margin_left = 1000.0
+margin_right = 1075.0
+margin_bottom = 151.0
+custom_fonts/font = SubResource( 5 )
+text = "0"
+align = 2
 [connection signal="body_entered" from="Underground/StaticBody2D" to="." method="_on_StaticBody2D_body_entered"]
+[connection signal="pressed" from="BtnStart" to="." method="_on_Btn_Start_pressed"]
