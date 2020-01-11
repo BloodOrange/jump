@@ -68,13 +68,10 @@ func _process(delta):
 		return;
 		
 	$Camera2D.position.y -= speed_fallen * delta
-	
-#	for c in $Platforms.get_children():
-#		c.position.y += speed_fallen * delta
-#
-#		if c.position.y > 2000:
-#			c.free()
-#			generate_platform_line()
+	var distance = $Character.position.y - $Camera2D.position.y
+	#print($Character.position.y, " - ", $Camera2D.position.y, " = ", distance)
+	if distance < 400:
+		$Camera2D.position.y = $Character.position.y - 400
 
 func generate_platform_line():
 	var number = last_platform.number + 1
