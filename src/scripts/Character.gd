@@ -9,13 +9,20 @@ var falling = true
 var jump = false
 var grip = false
 var grip_side
-var run = false
+var is_running = false
 
 func run():
-	run = true
+	is_running = true
+
+func stop():
+	is_running = false
+
+func reset():
+	stop()
+	velocity = Vector2(WALK_SPEED, 0)
 
 func _physics_process(delta):
-	if run == false:
+	if is_running == false:
 		return
 	
 	if is_on_floor():

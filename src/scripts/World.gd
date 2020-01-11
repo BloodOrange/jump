@@ -4,29 +4,59 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-const NB_PLATFORMS = 15
+const NB_PLATFORMS = 20
 const PLATFORM_SPACE = 160
+const DEFAULT_SPEED_FALLEN = 60
 
-export var speed_fallen = 60
+export var speed_fallen = DEFAULT_SPEED_FALLEN
 
 var start_game_delay = 3
 var start_game = false
 var platform_number = 0
-onready var last_platform = $Platforms/Ground
+var last_platform
 
 var Platform = preload("res://Platform.tscn")
 var rng = RandomNumberGenerator.new()
+
+var character_start_position
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
 	$Character.connect("on_platform_run", self, "on_platform")
-	generate_world()
+	character_start_position = $Character.position
+	reset_world()
 
 func on_platform(number):
 	if number > platform_number:
 		platform_number = number
-		$Score.text = str(platform_number)
+		$CanvasLayer/Score.text = str(platform_number)
+
+func clear_platforms():
+	for p in $Platforms.get_children():
+		p.free()
+	
+	# Make ground platform
+	var ground = Platform.instance()
+	ground.length_platform = 7
+	ground.position = Vector2(540, 1920)
+	$Platforms.call_deferred("add_child", ground)
+	last_platform = ground
+
+func reset_world():
+	$Character.reset()
+	$Character.position = character_start_position
+	
+	clear_platforms()
+	
+	# Reset camera
+	$Camera2D.position.y = 0
+	
+	# Regenerate world
+	generate_world()
+	
+	# Reset parameter
+	speed_fallen = DEFAULT_SPEED_FALLEN
 
 func _process(delta):
 	if start_game == false:
@@ -36,13 +66,15 @@ func _process(delta):
 	
 	if start_game_delay > 0:
 		return;
-	
-	for c in $Platforms.get_children():
-		c.position.y += speed_fallen * delta
 		
-		if c.position.y > 2000:
-			c.free()
-			generate_platform_line()
+	$Camera2D.position.y -= speed_fallen * delta
+	
+#	for c in $Platforms.get_children():
+#		c.position.y += speed_fallen * delta
+#
+#		if c.position.y > 2000:
+#			c.free()
+#			generate_platform_line()
 
 func generate_platform_line():
 	var number = last_platform.number + 1
@@ -52,7 +84,7 @@ func generate_platform_line():
 	node.position.y = last_platform.position.y - PLATFORM_SPACE
 	var length_pixel_plaform = node.BLOCK_SIZE * node.length_platform * node.scale.x
 	node.position.x = rng.randf_range(length_pixel_plaform + 10, 1080 - length_pixel_plaform - 10)
-	$Platforms.add_child(node)
+	$Platforms.call_deferred("add_child", node)
 	last_platform = node
 
 func generate_world():
@@ -66,10 +98,21 @@ func generate_world():
 
 func _on_StaticBody2D_body_entered(body):
 	if body == $Character:
-		print("Game Over")
+		start_game = false
+		start_game_delay = 3
+		reset_world()
+		$CanvasLayer/BtnStart.show()
+	else:
+		# Maybe not free to keep the level raising
+		# but disable collision for performance
+		body.get_parent().free()
+		generate_platform_line()
 
 
 func _on_Btn_Start_pressed():
+	platform_number = 0
+	$CanvasLayer/Score.text = str(platform_number)
 	start_game = true
-	$BtnStart.hide()
+	$CanvasLayer/BtnStart.hide()
 	$Character.run()
+
