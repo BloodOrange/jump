@@ -10,7 +10,7 @@ const DEFAULT_SPEED_FALLEN = 60
 
 export var speed_fallen = DEFAULT_SPEED_FALLEN
 
-var start_game_delay = 3
+var start_game_delay = 0
 var start_game = false
 var platform_number = 0
 var last_platform
@@ -23,6 +23,7 @@ var character_start_position
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
+	
 	$Character.connect("on_platform_run", self, "on_platform")
 	character_start_position = $Character.position
 	reset_world()
@@ -76,6 +77,14 @@ func _process(delta):
 func generate_platform_line():
 	var number = last_platform.number + 1
 	var node = Platform.instance()
+	if number >= 10000:
+		node.set_theme("snow")
+	elif number >= 1000:
+		node.set_theme("castle")
+	elif number >= 300:
+		node.set_theme("stone")
+	elif number >= 100:
+		node.set_theme("sand")
 	node.length_platform = rng.randi_range(2, 5)
 	node.number = number
 	node.position.y = last_platform.position.y - PLATFORM_SPACE
