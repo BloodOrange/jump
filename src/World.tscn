@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://assets/Tiles/grassFull.png" type="Texture" id=2]
@@ -20,6 +20,15 @@ size = 100
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFontData" id=6]
+font_path = "res://assets/Fonts/kenvector_future.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+size = 100
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 6 )
 
 [sub_resource type="Gradient" id=4]
 colors = PoolColorArray( 0.0193024, 0.647625, 0.988281, 1, 0, 0, 0, 1 )
@@ -63,7 +72,6 @@ position = Vector2( 540, 2200 )
 shape = SubResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="Score" type="Label" parent="CanvasLayer"]
 margin_left = 1000.0
@@ -74,12 +82,25 @@ custom_fonts/font = SubResource( 3 )
 text = "0"
 align = 2
 
-[node name="BtnStart" type="Button" parent="CanvasLayer"]
+[node name="StartScreen" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="BtnStart" type="Button" parent="CanvasLayer/StartScreen"]
 margin_right = 1080.0
 margin_bottom = 1920.0
 custom_fonts/font = SubResource( 3 )
 text = "Start"
 flat = true
+
+[node name="HighScore" type="Label" parent="CanvasLayer/StartScreen"]
+margin_right = 1080.0
+margin_bottom = 693.0
+custom_fonts/font = SubResource( 7 )
+text = "Best score
+ 0"
+align = 1
+valign = 1
 
 [node name="ParallaxBckgrd" type="ParallaxBackground" parent="."]
 layer = -2
@@ -97,6 +118,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 50, 1080 )
 
 [node name="ParallaxBckgrd2" type="ParallaxBackground" parent="."]
+editor/display_folded = true
 scroll_base_scale = Vector2( 1, 0.1 )
 
 [node name="Clouds" type="ParallaxLayer" parent="ParallaxBckgrd2"]
@@ -149,4 +171,4 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 8 )
 script = ExtResource( 6 )
 [connection signal="body_entered" from="Camera2D/Underground/StaticBody2D" to="." method="_on_StaticBody2D_body_entered"]
-[connection signal="pressed" from="CanvasLayer/BtnStart" to="." method="_on_Btn_Start_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartScreen/BtnStart" to="." method="_on_Btn_Start_pressed"]

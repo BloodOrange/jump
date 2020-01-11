@@ -41,6 +41,9 @@ func _ready():
 	character_start_position = $Character.position
 	reset_world()
 
+func update_highscore():
+	$CanvasLayer/StartScreen/HighScore.text = "Best score\n" + str(high_score)
+
 func create_file():
 	savegame.open(save_path, File.WRITE)
 	savegame.store_var(save_data)
@@ -57,6 +60,7 @@ func read_highscore():
 	save_data = savegame.get_var() #get the value
 	savegame.close() #close the file
 	high_score = save_data["highscore"] #return the value
+	update_highscore()
 
 func on_platform(platform_node):
 	if platform_node.number >= current_score:
@@ -115,7 +119,7 @@ func generate_platform_line():
 	var number = last_platform.number + 1
 	var node = Platform.instance()
 	
-	if number == high_score + 1:
+	if high_score != 0 and number == high_score + 1:
 		node.is_highscore = true
 		connect("beat_score", node, "turn_on_light")
 
@@ -154,7 +158,7 @@ func _on_StaticBody2D_body_entered(body):
 			save_highscore()
 		
 		reset_world()
-		$CanvasLayer/BtnStart.show()
+		$CanvasLayer/StartScreen.show()
 	else:
 		# Maybe not free to keep the level raising
 		# but disable collision for performance
@@ -166,6 +170,6 @@ func _on_Btn_Start_pressed():
 	current_score = 0
 	$CanvasLayer/Score.text = str(current_score)
 	start_game = true
-	$CanvasLayer/BtnStart.hide()
+	$CanvasLayer/StartScreen.hide()
 	$Character.run()
 
