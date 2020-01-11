@@ -135,6 +135,10 @@ func generate_platform_line():
 	node.position.x = rng.randf_range(length_pixel_plaform + 10, 1080 - length_pixel_plaform - 10)
 	$Platforms.call_deferred("add_child", node)
 	last_platform = node
+	
+	if number == 150:
+		$Camera2D/Particles2D.show()
+		$Camera2D/Particles2D.emitting = true
 
 func generate_world():
 	for i in range(NB_PLATFORMS):
@@ -148,7 +152,7 @@ func generate_world():
 func _on_StaticBody2D_body_entered(body):
 	if body == $Character:
 		start_game = false
-		start_game_delay = 3
+		start_game_delay = 0
 		
 		if current_score > high_score:
 			high_score = current_score
