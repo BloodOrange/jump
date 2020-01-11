@@ -1,8 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Character.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Items/cloud1.png" type="Texture" id=4]
+[ext_resource path="res://scripts/Cloud.gd" type="Script" id=5]
+[ext_resource path="res://assets/Items/cloud3.png" type="Texture" id=6]
+[ext_resource path="res://assets/Items/cloud2.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 540, 10 )
@@ -13,6 +17,13 @@ font_path = "res://assets/Fonts/kenpixel.ttf"
 [sub_resource type="DynamicFont" id=3]
 size = 100
 font_data = SubResource( 2 )
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 0.0193024, 0.647625, 0.988281, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+width = 50
 
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
@@ -59,8 +70,72 @@ custom_fonts/font = SubResource( 3 )
 text = "Start"
 flat = true
 
-[node name="DeadScreen" type="Control" parent="CanvasLayer"]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="ParallaxBckgrd" type="ParallaxBackground" parent="."]
+layer = -2
+scroll_base_scale = Vector2( 1, 0.3 )
+
+[node name="Gradient" type="ParallaxLayer" parent="ParallaxBckgrd"]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBckgrd/Gradient"]
+position = Vector2( 0, 1920 )
+rotation = 4.71239
+scale = Vector2( 500, 1 )
+texture = SubResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 50, 1080 )
+
+[node name="ParallaxBckgrd2" type="ParallaxBackground" parent="."]
+scroll_base_scale = Vector2( 1, 0.1 )
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBckgrd2"]
+
+[node name="Cloud1" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( 57.7583, 425.717 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="Cloud3" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( -828.097, -2431.17 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+speed = 15
+
+[node name="Cloud2" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( 1052.43, -1207.96 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+script = ExtResource( 5 )
+speed = 5
+going_right = false
+
+[node name="Cloud7" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( 1273.9, -2839.41 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+script = ExtResource( 5 )
+speed = 5
+going_right = false
+
+[node name="Cloud4" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( 432.333, -418.07 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+script = ExtResource( 5 )
+speed = 5
+
+[node name="Cloud5" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( -338.029, -1394.33 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+script = ExtResource( 5 )
+
+[node name="Cloud6" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( -677.607, -3505.62 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+script = ExtResource( 5 )
 [connection signal="body_entered" from="Camera2D/Underground/StaticBody2D" to="." method="_on_StaticBody2D_body_entered"]
 [connection signal="pressed" from="CanvasLayer/BtnStart" to="." method="_on_Btn_Start_pressed"]

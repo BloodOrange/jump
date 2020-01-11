@@ -1,19 +1,20 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scripts/Character.gd" type="Script" id=1]
-[ext_resource path="res://assets/Player/p1_jump.png" type="Texture" id=2]
-[ext_resource path="res://assets/Player/p1_duck.png" type="Texture" id=3]
-[ext_resource path="res://assets/Player/p1_front.png" type="Texture" id=4]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk01.png" type="Texture" id=5]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk02.png" type="Texture" id=6]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk03.png" type="Texture" id=7]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk04.png" type="Texture" id=8]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk05.png" type="Texture" id=9]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk06.png" type="Texture" id=10]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk07.png" type="Texture" id=11]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk08.png" type="Texture" id=12]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk10.png" type="Texture" id=13]
-[ext_resource path="res://assets/Player/p1_walk/PNG/p1_walk11.png" type="Texture" id=14]
+[ext_resource path="res://assets/Player/p3_jump.png" type="Texture" id=2]
+[ext_resource path="res://assets/Player/p3_duck.png" type="Texture" id=3]
+[ext_resource path="res://assets/Player/p3_front.png" type="Texture" id=4]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk01.png" type="Texture" id=5]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk02.png" type="Texture" id=6]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk03.png" type="Texture" id=7]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk04.png" type="Texture" id=8]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk05.png" type="Texture" id=9]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk06.png" type="Texture" id=10]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk07.png" type="Texture" id=11]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk08.png" type="Texture" id=12]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk09.png" type="Texture" id=13]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk10.png" type="Texture" id=14]
+[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk11.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 68, 92 )
@@ -35,36 +36,35 @@ animations = [ {
 "name": "stay",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
 "loop": true,
 "name": "walk",
 "speed": 30.0
 } ]
 
-[sub_resource type="Curve" id=6]
+[sub_resource type="Curve" id=3]
 min_value = -1.0
 _data = [ Vector2( 0.0370534, -1 ), 0.0, 0.361819, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=7]
-curve = SubResource( 6 )
-
-[sub_resource type="Curve" id=3]
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.551033, 0.984 ), 3.21169, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=4]
 curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.551033, 0.984 ), 3.21169, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 82.19
-angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 16.3
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 6 )
 color = Color( 0.4, 0.27451, 0.152941, 1 )
-hue_variation_curve = SubResource( 7 )
+hue_variation_curve = SubResource( 4 )
 
 [node name="Character" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -75,11 +75,12 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
-animation = "stay"
+animation = "walk"
+frame = 4
 playing = true
 
 [node name="Particles2D" type="Particles2D" parent="."]
 visible = false
 position = Vector2( -29.0484, 91.9866 )
 rotation = 3.14159
-process_material = SubResource( 5 )
+process_material = SubResource( 7 )

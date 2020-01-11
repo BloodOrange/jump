@@ -91,6 +91,10 @@ func reset_world():
 	
 	# Reset parameter
 	speed_fallen = DEFAULT_SPEED_FALLEN
+	
+	# Reset clouds
+	for cloud in $ParallaxBckgrd2/Clouds.get_children():
+		cloud.reset()
 
 func _process(delta):
 	if start_game == false:
