@@ -148,7 +148,7 @@ func generate_world():
 func _on_StaticBody2D_body_entered(body):
 	if body == $Character:
 		start_game = false
-		start_game_delay = 3
+		start_game_delay = 0
 		
 		if current_score > high_score:
 			high_score = current_score
