@@ -7,9 +7,6 @@ extents = Vector2( 70, 40 )
 
 [node name="Platform" type="Node2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Picture" type="Node2D" parent="."]
 scale = Vector2( 2, 2 )

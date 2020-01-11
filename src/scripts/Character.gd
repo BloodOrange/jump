@@ -71,7 +71,7 @@ func _physics_process(delta):
 		var collision = get_slide_collision(i)
 		var node = collision.collider.get_parent()
 		if not node.get("number") == null:
-			emit_signal("on_platform_run", node.number)
+			emit_signal("on_platform_run", node)
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

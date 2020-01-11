@@ -8,11 +8,19 @@ const NB_PLATFORMS = 20
 const PLATFORM_SPACE = 320
 const DEFAULT_SPEED_FALLEN = 60
 
+signal beat_score
+
+var savegame = File.new()
+var save_path = "user://savegame.save"
+var save_data = {"highscore": 0}
+
 export var speed_fallen = DEFAULT_SPEED_FALLEN
+
+var high_score = 0
+var current_score = 0
 
 var start_game_delay = 0
 var start_game = false
-var platform_number = 0
 var last_platform
 
 var Platform = preload("res://Platform.tscn")
@@ -24,14 +32,39 @@ var character_start_position
 func _ready():
 	rng.randomize()
 	
+	if not savegame.file_exists(save_path):
+		create_file()
+	else:
+		read_highscore()
+	
 	$Character.connect("on_platform_run", self, "on_platform")
 	character_start_position = $Character.position
 	reset_world()
 
-func on_platform(number):
-	if number > platform_number:
-		platform_number = number
-		$CanvasLayer/Score.text = str(platform_number)
+func create_file():
+	savegame.open(save_path, File.WRITE)
+	savegame.store_var(save_data)
+	savegame.close()
+
+func save_highscore():
+	save_data["highscore"] = high_score
+	savegame.open(save_path, File.WRITE)
+	savegame.store_var(save_data)
+	savegame.close()
+
+func read_highscore():
+	savegame.open(save_path, File.READ) #open the file
+	save_data = savegame.get_var() #get the value
+	savegame.close() #close the file
+	high_score = save_data["highscore"] #return the value
+
+func on_platform(platform_node):
+	if platform_node.number >= current_score:
+		current_score = platform_node.number
+		$CanvasLayer/Score.text = str(current_score)
+		
+		if current_score > high_score:
+			emit_signal("beat_score")
 
 func clear_platforms():
 	for p in $Platforms.get_children():
@@ -77,6 +110,11 @@ func _process(delta):
 func generate_platform_line():
 	var number = last_platform.number + 1
 	var node = Platform.instance()
+	
+	if number == high_score + 1:
+		node.is_highscore = true
+		connect("beat_score", node, "turn_on_light")
+
 	if number >= 10000:
 		node.set_theme("snow")
 	elif number >= 1000:
@@ -106,6 +144,11 @@ func _on_StaticBody2D_body_entered(body):
 	if body == $Character:
 		start_game = false
 		start_game_delay = 3
+		
+		if current_score > high_score:
+			high_score = current_score
+			save_highscore()
+		
 		reset_world()
 		$CanvasLayer/BtnStart.show()
 	else:
@@ -116,8 +159,8 @@ func _on_StaticBody2D_body_entered(body):
 
 
 func _on_Btn_Start_pressed():
-	platform_number = 0
-	$CanvasLayer/Score.text = str(platform_number)
+	current_score = 0
+	$CanvasLayer/Score.text = str(current_score)
 	start_game = true
 	$CanvasLayer/BtnStart.hide()
 	$Character.run()
