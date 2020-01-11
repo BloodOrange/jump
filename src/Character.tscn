@@ -16,8 +16,9 @@
 [ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk10.png" type="Texture" id=14]
 [ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk11.png" type="Texture" id=15]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 68, 92 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 70.2105
+height = 43.3684
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -76,7 +77,7 @@ shape = SubResource( 1 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
 animation = "walk"
-frame = 4
+frame = 2
 playing = true
 
 [node name="Particles2D" type="Particles2D" parent="."]

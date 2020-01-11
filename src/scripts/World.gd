@@ -26,7 +26,6 @@ var last_platform
 var Platform = preload("res://Platform.tscn")
 var rng = RandomNumberGenerator.new()
 
-var character_start_position
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,7 +37,6 @@ func _ready():
 		read_highscore()
 	
 	$Character.connect("on_platform_run", self, "on_platform")
-	character_start_position = $Character.position
 	reset_world()
 
 func create_file():
@@ -79,7 +77,6 @@ func clear_platforms():
 
 func reset_world():
 	$Character.reset()
-	$Character.position = character_start_position
 	
 	clear_platforms()
 	
