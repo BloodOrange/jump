@@ -17,7 +17,11 @@ _global_script_class_icons={
 
 config/name="Jump"
 run/main_scene="res://World.tscn"
-config/icon="res://icon.png"
+config/icon="res://hud_p3Alt.png"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 
