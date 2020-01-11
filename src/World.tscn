@@ -21,20 +21,20 @@ outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 2 )
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=4]
 font_path = "res://assets/Fonts/kenvector_future.ttf"
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=5]
 size = 100
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 6 )
+font_data = SubResource( 4 )
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=6]
 colors = PoolColorArray( 0.0193024, 0.647625, 0.988281, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=5]
-gradient = SubResource( 4 )
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 width = 50
 
 [node name="World" type="Node2D"]
@@ -48,7 +48,7 @@ flip_v = true
 
 [node name="Platforms" type="Node2D" parent="."]
 
-[node name="Character" parent="." instance=ExtResource( 2 )]
+[node name="Character" parent="." instance=ExtResource( 3 )]
 position = Vector2( 265, 1338 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -96,7 +96,7 @@ flat = true
 [node name="HighScore" type="Label" parent="CanvasLayer/StartScreen"]
 margin_right = 1080.0
 margin_bottom = 693.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 5 )
 text = "Best score
  0"
 align = 1
@@ -112,7 +112,7 @@ scroll_base_scale = Vector2( 1, 0.3 )
 position = Vector2( 0, 1920 )
 rotation = 4.71239
 scale = Vector2( 500, 1 )
-texture = SubResource( 5 )
+texture = SubResource( 7 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 50, 1080 )
