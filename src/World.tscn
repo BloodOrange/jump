@@ -13,10 +13,12 @@
 extents = Vector2( 540, 10 )
 
 [sub_resource type="DynamicFontData" id=2]
-font_path = "res://assets/Fonts/kenpixel.ttf"
+font_path = "res://assets/Fonts/kenvector_future.ttf"
 
 [sub_resource type="DynamicFont" id=3]
 size = 100
+outline_size = 3
+outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 2 )
 
 [sub_resource type="Gradient" id=4]
