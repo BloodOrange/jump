@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 signal on_platform_run
 
-const GRAVITY = 1500.0
+const GRAVITY = 3500.0
 const WALK_SPEED = 400
 var velocity = Vector2(WALK_SPEED, 0)
 var falling = true
@@ -50,7 +50,7 @@ func _physics_process(delta):
 			
 	# Jump
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and (is_on_floor() or is_on_wall()) and jump == false:
-		velocity.y -= 800
+		velocity.y -= 2000
 		jump = true
 		if is_on_wall():
 			if grip_side == 'left':

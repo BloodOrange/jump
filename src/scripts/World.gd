@@ -5,7 +5,7 @@ extends Node2D
 # var b = "text"
 
 const NB_PLATFORMS = 20
-const PLATFORM_SPACE = 160
+const PLATFORM_SPACE = 320
 const DEFAULT_SPEED_FALLEN = 60
 
 export var speed_fallen = DEFAULT_SPEED_FALLEN
@@ -38,8 +38,8 @@ func clear_platforms():
 	
 	# Make ground platform
 	var ground = Platform.instance()
-	ground.length_platform = 7
-	ground.position = Vector2(540, 1920)
+	ground.length_platform = 10
+	ground.position = Vector2(540, 1500)
 	$Platforms.call_deferred("add_child", ground)
 	last_platform = ground
 
