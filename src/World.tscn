@@ -52,7 +52,6 @@ flip_v = true
 position = Vector2( 265, 1338 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-editor/display_folded = true
 anchor_mode = 0
 current = true
 drag_margin_h_enabled = false
