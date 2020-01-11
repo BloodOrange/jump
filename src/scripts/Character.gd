@@ -10,6 +10,7 @@ var jump = false
 var grip = false
 var grip_side
 var is_running = false
+onready var character_start_position = position
 
 func run():
 	is_running = true
@@ -20,6 +21,10 @@ func stop():
 func reset():
 	stop()
 	velocity = Vector2(WALK_SPEED, 0)
+	$AnimatedSprite.rotation_degrees = 0
+	$AnimatedSprite.animation = "stay"
+	$AnimatedSprite.play()
+	position = character_start_position
 
 func _physics_process(delta):
 	if is_running == false:
@@ -75,6 +80,8 @@ func _physics_process(delta):
 
 ## Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if is_running == false:
+		return
 	# Animation
 	$AnimatedSprite.rotation_degrees = 0
 	if falling:

@@ -48,8 +48,8 @@ flip_v = true
 
 [node name="Platforms" type="Node2D" parent="."]
 
-[node name="Character" parent="." instance=ExtResource( 3 )]
-position = Vector2( 265, 1330 )
+[node name="Character" parent="." instance=ExtResource( 2 )]
+position = Vector2( 265, 1338 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 editor/display_folded = true
@@ -64,7 +64,7 @@ drag_margin_v_enabled = false
 position = Vector2( 1080, 0 )
 
 [node name="Underground" type="Node2D" parent="Camera2D"]
-position = Vector2( 540, 2200 )
+position = Vector2( 540, 2000 )
 
 [node name="StaticBody2D" type="Area2D" parent="Camera2D/Underground"]
 
