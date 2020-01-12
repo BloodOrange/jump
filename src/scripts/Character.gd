@@ -23,6 +23,7 @@ func reset():
 	velocity = Vector2(WALK_SPEED, 0)
 	$AnimatedSprite.rotation_degrees = 0
 	$AnimatedSprite.animation = "stay"
+	$CPUParticles2D.emitting = false
 	$AnimatedSprite.play()
 	position = character_start_position
 
@@ -86,12 +87,14 @@ func _process(delta):
 	$AnimatedSprite.rotation_degrees = 0
 	if falling:
 		$AnimatedSprite.animation = "jump"
+		$CPUParticles2D.emitting = false
 		if velocity.x > 0:
 			$AnimatedSprite.flip_h = false
 		elif velocity.x < 0:
 			$AnimatedSprite.flip_h = true
 	elif grip:
 		$AnimatedSprite.animation = "grip"
+		$CPUParticles2D.emitting = false
 		if grip_side == 'right':
 			$AnimatedSprite.rotation_degrees = -90
 			$AnimatedSprite.flip_v = false
@@ -102,10 +105,12 @@ func _process(delta):
 		if velocity.x != 0:
 			$AnimatedSprite.animation = "walk"
 			$AnimatedSprite.play()
+			$CPUParticles2D.emitting = true
 			if velocity.x > 0:
 				$AnimatedSprite.flip_h = false
 			if velocity.x < 0:
 				$AnimatedSprite.flip_h = true
 		else:
 			$AnimatedSprite.animation = "stay"
+			$CPUParticles2D.emitting = false
 
