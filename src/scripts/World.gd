@@ -96,6 +96,10 @@ func reset_world():
 	# Reset clouds
 	for cloud in $ParallaxBckgrd2/Clouds.get_children():
 		cloud.reset()
+	
+	# Reset Stars
+	$CanvasLayer2/Stars.hide()
+	$CanvasLayer2/Stars.emitting = false
 
 func _process(delta):
 	if start_game == false:
@@ -120,12 +124,12 @@ func generate_platform_line():
 		node.is_highscore = true
 		connect("beat_score", node, "turn_on_light")
 
-	if number >= 10000:
-		node.set_theme("snow")
-	elif number >= 1000:
+	if number >= 1000:
 		node.set_theme("castle")
-	elif number >= 300:
+	elif number >= 500:
 		node.set_theme("stone")
+	elif number >= 250:
+		node.set_theme("snow")
 	elif number >= 100:
 		node.set_theme("sand")
 	node.length_platform = rng.randi_range(2, 5)
@@ -136,9 +140,9 @@ func generate_platform_line():
 	$Platforms.call_deferred("add_child", node)
 	last_platform = node
 	
-	if number == 150:
-		$Camera2D/Particles2D.show()
-		$Camera2D/Particles2D.emitting = true
+	if number == 50:
+		$CanvasLayer2/Stars.emitting = true
+		$CanvasLayer2/Stars.show()
 
 func generate_world():
 	for i in range(NB_PLATFORMS):
@@ -156,6 +160,7 @@ func _on_StaticBody2D_body_entered(body):
 		
 		if current_score > high_score:
 			high_score = current_score
+			update_highscore()
 			save_highscore()
 		
 		reset_world()

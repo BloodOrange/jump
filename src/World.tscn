@@ -1,64 +1,85 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
-[ext_resource path="res://assets/Items/star.png" type="Texture" id=2]
-[ext_resource path="res://Wall.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/Tiles/grassFull.png" type="Texture" id=4]
-[ext_resource path="res://Character.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Tiles/grassFull.png" type="Texture" id=3]
+[ext_resource path="res://Character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/Items/star.png" type="Texture" id=5]
 [ext_resource path="res://assets/Items/cloud1.png" type="Texture" id=6]
 [ext_resource path="res://scripts/Cloud.gd" type="Script" id=7]
 [ext_resource path="res://assets/Items/cloud3.png" type="Texture" id=8]
 [ext_resource path="res://assets/Items/cloud2.png" type="Texture" id=9]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 200, 1 )
+flag_disable_z = true
+gravity = Vector3( 98, 98, 0 )
+angular_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 20.0
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 540, 10 )
+
+[sub_resource type="Gradient" id=3]
 colors = PoolColorArray( 1, 1, 1, 0, 0.925293, 0.903126, 0.780716, 1 )
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 0 ), 0.0, 3.93372, 0, 0, Vector2( 1, 0 ), -4.3775, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
-curve = SubResource( 3 )
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 2
 emission_box_extents = Vector3( 500, 1000, 1 )
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
+angular_velocity = -0.995185
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-scale = 0.2
-scale_curve = SubResource( 4 )
-color_ramp = SubResource( 2 )
+scale = 0.4
+scale_random = 0.4
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 540, 10 )
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0 ), 0.0, 3.04571, 0, 0, Vector2( 1, 0 ), -4.42221, 0.0, 0, 0 ]
 
-[sub_resource type="DynamicFontData" id=7]
+[sub_resource type="Gradient" id=9]
+offsets = PoolRealArray( 0.003367, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
+
+[sub_resource type="DynamicFontData" id=10]
 font_path = "res://assets/Fonts/kenvector_future.ttf"
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=11]
 size = 100
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 7 )
+font_data = SubResource( 10 )
 
-[sub_resource type="DynamicFontData" id=9]
+[sub_resource type="DynamicFontData" id=12]
 font_path = "res://assets/Fonts/kenvector_future.ttf"
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=13]
 size = 100
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 9 )
+font_data = SubResource( 12 )
 
-[sub_resource type="Gradient" id=11]
+[sub_resource type="Gradient" id=14]
 colors = PoolColorArray( 0.0193024, 0.647625, 0.988281, 1, 0, 0, 0, 1 )
 
-[sub_resource type="GradientTexture" id=12]
-gradient = SubResource( 11 )
+[sub_resource type="GradientTexture" id=15]
+gradient = SubResource( 14 )
 width = 50
 
 [node name="World" type="Node2D"]
@@ -70,18 +91,19 @@ current = true
 drag_margin_h_enabled = false
 drag_margin_v_enabled = false
 
-[node name="Particles2D" type="Particles2D" parent="Camera2D"]
+[node name="Particles2D2" type="Particles2D" parent="Camera2D"]
 visible = false
-position = Vector2( 510.479, 960 )
-emitting = false
-amount = 100
-lifetime = 10.0
-process_material = SubResource( 5 )
-texture = ExtResource( 2 )
+position = Vector2( 0, 1920 )
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.3
+randomness = 0.4
+process_material = SubResource( 1 )
 
-[node name="Wall" parent="Camera2D" instance=ExtResource( 3 )]
+[node name="Wall" parent="Camera2D" instance=ExtResource( 2 )]
 
-[node name="Wall2" parent="Camera2D" instance=ExtResource( 3 )]
+[node name="Wall2" parent="Camera2D" instance=ExtResource( 2 )]
 position = Vector2( 1080, 0 )
 
 [node name="Underground" type="Node2D" parent="Camera2D"]
@@ -90,18 +112,44 @@ position = Vector2( 540, 2000 )
 [node name="StaticBody2D" type="Area2D" parent="Camera2D/Underground"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Underground/StaticBody2D"]
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
 [node name="Ground" type="Sprite" parent="."]
 position = Vector2( 0, 1509 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 centered = false
 flip_v = true
 
 [node name="Platforms" type="Node2D" parent="."]
 
-[node name="Character" parent="." instance=ExtResource( 5 )]
+[node name="Character" parent="." instance=ExtResource( 4 )]
 position = Vector2( 265, 1338 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Stars3" type="Particles2D" parent="CanvasLayer2"]
+position = Vector2( 510, 960 )
+emitting = false
+amount = 20
+lifetime = 5.0
+process_material = SubResource( 7 )
+texture = ExtResource( 5 )
+
+[node name="Stars" type="CPUParticles2D" parent="CanvasLayer2"]
+visible = false
+position = Vector2( 510, 960 )
+emitting = false
+amount = 20
+lifetime = 5.0
+texture = ExtResource( 5 )
+emission_shape = 2
+emission_rect_extents = Vector2( 500, 1000 )
+gravity = Vector2( 0, 0 )
+scale_amount = 0.4
+scale_amount_random = 0.4
+scale_amount_curve = SubResource( 8 )
+color_ramp = SubResource( 9 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -110,7 +158,7 @@ margin_left = 1000.0
 margin_right = 1075.0
 margin_bottom = 151.0
 grow_horizontal = 0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 11 )
 text = "0"
 align = 2
 
@@ -121,14 +169,14 @@ margin_bottom = 40.0
 [node name="BtnStart" type="Button" parent="CanvasLayer/StartScreen"]
 margin_right = 1080.0
 margin_bottom = 1920.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 11 )
 text = "Start"
 flat = true
 
 [node name="HighScore" type="Label" parent="CanvasLayer/StartScreen"]
 margin_right = 1080.0
 margin_bottom = 693.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 13 )
 text = "Best score
  0"
 align = 1
@@ -144,7 +192,7 @@ scroll_base_scale = Vector2( 1, 0.3 )
 position = Vector2( 0, 1920 )
 rotation = 4.71239
 scale = Vector2( 500, 1 )
-texture = SubResource( 12 )
+texture = SubResource( 15 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 50, 1080 )
