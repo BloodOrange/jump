@@ -73,7 +73,7 @@ margin_bottom = 1920.0
 
 [node name="LblGameOver" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 1080.0
-margin_bottom = 723.0
+margin_bottom = 725.0
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.764706, 0.388235, 0.521569, 1 )
@@ -85,9 +85,9 @@ align = 1
 valign = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 727.0
+margin_top = 729.0
 margin_right = 1080.0
-margin_bottom = 956.0
+margin_bottom = 958.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 margin_right = 1080.0
@@ -95,7 +95,6 @@ margin_bottom = 90.0
 alignment = 1
 
 [node name="TextureLightLeft" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
-editor/display_folded = true
 margin_left = 298.0
 margin_right = 368.0
 margin_bottom = 90.0
@@ -136,9 +135,10 @@ align = 1
 valign = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 960.0
+editor/display_folded = true
+margin_top = 962.0
 margin_right = 1080.0
-margin_bottom = 1189.0
+margin_bottom = 1191.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
 margin_right = 1080.0
@@ -158,21 +158,24 @@ text = "10"
 align = 1
 valign = 1
 
-[node name="BtnRestart" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 1193.0
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 1195.0
 margin_right = 1080.0
-margin_bottom = 1916.0
+margin_bottom = 1920.0
+size_flags_vertical = 3
+
+[node name="BtnRestart" type="Button" parent="MarginContainer/VBoxContainer/CenterContainer"]
+margin_left = 112.0
+margin_top = 314.0
+margin_right = 968.0
+margin_bottom = 410.0
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 4 )
+shortcut_in_tooltip = false
 text = "Tap to restart"
 flat = true
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 1920.0
-margin_right = 1080.0
-margin_bottom = 1920.0
-
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-[connection signal="pressed" from="MarginContainer/VBoxContainer/BtnRestart" to="." method="_on_BtnRestart_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/BtnRestart" to="." method="_on_BtnRestart_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

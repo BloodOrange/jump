@@ -146,7 +146,7 @@ func generate_platform_line():
 	$Platforms.call_deferred("add_child", node)
 	last_platform = node
 	
-	if number == 100:
+	if number == 150:
 		$StarsLayer/Stars.emitting = true
 		$StarsLayer/Stars.show()
 

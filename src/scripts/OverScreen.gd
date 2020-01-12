@@ -9,6 +9,12 @@ export var score = 0 setget set_score
 
 onready var torch_default_texture = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft.texture
 
+onready var restart_node = $MarginContainer/VBoxContainer/CenterContainer/BtnRestart
+onready var score_node = $MarginContainer/VBoxContainer/VBoxContainer/LblScore
+onready var high_score_node = $MarginContainer/VBoxContainer/VBoxContainer2/LblHighScore
+onready var light_left_node = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft/AnimationPlayer
+onready var light_right_node = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight/AnimationPlayer2
+
 signal restart_game
 
 # Called when the node enters the scene tree for the first time.
@@ -17,25 +23,24 @@ func _ready():
 
 func set_high_score(hs):
 	high_score = hs
-	$MarginContainer/VBoxContainer/VBoxContainer2/LblHighScore.text = str(high_score)
+	high_score_node.text = str(high_score)
 
 func set_score(s):
 	score = s
-	$MarginContainer/VBoxContainer/VBoxContainer/LblScore.text = str(score)
+	score_node.text = str(score)
 
 func show():
 	.show()
-	$MarginContainer/VBoxContainer/BtnRestart.text = ""
-	$MarginContainer/VBoxContainer/BtnRestart.disabled = true
+	restart_node.hide()
 	
 	if score > high_score:
-		$MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft/AnimationPlayer.play("light")
-		$MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight/AnimationPlayer2.play("light")
+		light_left_node.play("light")
+		light_right_node.play("light")
 	else:
-		$MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft/AnimationPlayer.stop()
-		$MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft.texture = torch_default_texture
-		$MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight/AnimationPlayer2.stop()
-		$MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight.texture = torch_default_texture
+		light_left_node.stop()
+		light_left_node.get_parent().texture = torch_default_texture
+		light_right_node.stop()
+		light_right_node.get_parent().texture = torch_default_texture
 	
 	$Timer.start()
 
@@ -45,8 +50,7 @@ func show():
 
 
 func _on_Timer_timeout():
-	$MarginContainer/VBoxContainer/BtnRestart.disabled = false
-	$MarginContainer/VBoxContainer/BtnRestart.text = "Restart"
+	restart_node.show()
 	
 func _on_BtnRestart_pressed():
 	emit_signal("restart_game")
