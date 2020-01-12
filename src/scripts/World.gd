@@ -79,7 +79,13 @@ func clear_platforms():
 	$Platforms.call_deferred("add_child", ground)
 	last_platform = ground
 
+func stop_world():
+	$Character.stop()
+	start_game = false
+
 func reset_world():
+	$GuiLayer/Score.hide()
+	
 	$Character.reset()
 	
 	clear_platforms()
@@ -152,28 +158,26 @@ func generate_world():
 #func _process(delta):
 #	pass
 
-
 func _on_StaticBody2D_body_entered(body):
 	if body == $Character:
 		start_game = false
 		start_game_delay = 0
+		
+		stop_world()
+		$GuiLayer/OverScreen.score = current_score
+		$GuiLayer/OverScreen.high_score = high_score
 		
 		if current_score > high_score:
 			high_score = current_score
 			update_highscore()
 			save_highscore()
 		
-		reset_world()
-		$GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer/LblScore.text = str(current_score)
-		$GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer2/LblHighScore.text = str(high_score)
-		$GuiLayer/OverScreen/Timer.start()
 		$GuiLayer/OverScreen.show()
 	else:
 		# Maybe not free to keep the level raising
 		# but disable collision for performance
 		body.get_parent().free()
 		generate_platform_line()
-
 
 func _on_Btn_Start_pressed():
 	current_score = 0
@@ -183,10 +187,9 @@ func _on_Btn_Start_pressed():
 	$GuiLayer/Score.show()
 	$Character.run()
 
-func _on_BtnRestart_pressed():
+func _on_Restart_game():
 	$GuiLayer/OverScreen.hide()
-	$GuiLayer/OverScreen/MarginContainer/VBoxContainer/BtnRestart.hide()
 	$GuiLayer/StartScreen.show()
+	
+	reset_world()
 
-func _on_Timer_timeout():
-	$GuiLayer/OverScreen/MarginContainer/VBoxContainer/BtnRestart.show()
