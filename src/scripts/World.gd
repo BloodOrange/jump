@@ -40,7 +40,7 @@ func _ready():
 	reset_world()
 
 func update_highscore():
-	$CanvasLayer/StartScreen/HighScore.text = "Best score\n" + str(high_score)
+	$GuiLayer/StartScreen/HighScore.text = "Best score\n" + str(high_score)
 
 func create_file():
 	savegame.open(save_path, File.WRITE)
@@ -63,7 +63,7 @@ func read_highscore():
 func on_platform(platform_node):
 	if platform_node.number >= current_score:
 		current_score = platform_node.number
-		$CanvasLayer/Score.text = str(current_score)
+		$GuiLayer/Score.text = str(current_score)
 		
 		if current_score > high_score:
 			emit_signal("beat_score")
@@ -98,8 +98,8 @@ func reset_world():
 		cloud.reset()
 	
 	# Reset Stars
-	$CanvasLayer2/Stars.hide()
-	$CanvasLayer2/Stars.emitting = false
+	$StarsLayer/Stars.hide()
+	$StarsLayer/Stars.emitting = false
 
 func _process(delta):
 	if start_game == false:
@@ -140,9 +140,9 @@ func generate_platform_line():
 	$Platforms.call_deferred("add_child", node)
 	last_platform = node
 	
-	if number == 50:
-		$CanvasLayer2/Stars.emitting = true
-		$CanvasLayer2/Stars.show()
+	if number == 100:
+		$StarsLayer/Stars.emitting = true
+		$StarsLayer/Stars.show()
 
 func generate_world():
 	for i in range(NB_PLATFORMS):
@@ -164,7 +164,10 @@ func _on_StaticBody2D_body_entered(body):
 			save_highscore()
 		
 		reset_world()
-		$CanvasLayer/StartScreen.show()
+		$GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer/LblScore.text = str(current_score)
+		$GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer2/LblHighScore.text = str(high_score)
+		$GuiLayer/OverScreen/Timer.start()
+		$GuiLayer/OverScreen.show()
 	else:
 		# Maybe not free to keep the level raising
 		# but disable collision for performance
@@ -174,8 +177,16 @@ func _on_StaticBody2D_body_entered(body):
 
 func _on_Btn_Start_pressed():
 	current_score = 0
-	$CanvasLayer/Score.text = str(current_score)
+	$GuiLayer/Score.text = str(current_score)
 	start_game = true
-	$CanvasLayer/StartScreen.hide()
+	$GuiLayer/StartScreen.hide()
+	$GuiLayer/Score.show()
 	$Character.run()
 
+func _on_BtnRestart_pressed():
+	$GuiLayer/OverScreen.hide()
+	$GuiLayer/OverScreen/MarginContainer/VBoxContainer/BtnRestart.hide()
+	$GuiLayer/StartScreen.show()
+
+func _on_Timer_timeout():
+	$GuiLayer/OverScreen/MarginContainer/VBoxContainer/BtnRestart.show()

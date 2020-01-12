@@ -1,14 +1,15 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/Tiles/grassFull.png" type="Texture" id=3]
 [ext_resource path="res://Character.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/Items/star.png" type="Texture" id=5]
-[ext_resource path="res://assets/Items/cloud1.png" type="Texture" id=6]
-[ext_resource path="res://scripts/Cloud.gd" type="Script" id=7]
-[ext_resource path="res://assets/Items/cloud3.png" type="Texture" id=8]
-[ext_resource path="res://assets/Items/cloud2.png" type="Texture" id=9]
+[ext_resource path="res://assets/font_score_label.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/Items/cloud1.png" type="Texture" id=7]
+[ext_resource path="res://scripts/Cloud.gd" type="Script" id=8]
+[ext_resource path="res://assets/Items/cloud3.png" type="Texture" id=9]
+[ext_resource path="res://assets/Items/cloud2.png" type="Texture" id=10]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -26,7 +27,7 @@ hue_variation_random = 1.0
 extents = Vector2( 540, 10 )
 
 [sub_resource type="Gradient" id=3]
-colors = PoolColorArray( 1, 1, 1, 0, 0.925293, 0.903126, 0.780716, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.856934, 0.809203, 0.545626, 1 )
 
 [sub_resource type="GradientTexture" id=4]
 gradient = SubResource( 3 )
@@ -51,11 +52,11 @@ scale_curve = SubResource( 6 )
 color_ramp = SubResource( 4 )
 
 [sub_resource type="Curve" id=8]
-_data = [ Vector2( 0, 0 ), 0.0, 3.04571, 0, 0, Vector2( 1, 0 ), -4.42221, 0.0, 0, 0 ]
+_data = [ Vector2( 0.00259259, 0 ), 0.0, 3.67676, 0, 0, Vector2( 1, 0 ), -3.52538, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=9]
 offsets = PoolRealArray( 0.003367, 1 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.898438, 0.851141, 0.635223, 1 )
 
 [sub_resource type="DynamicFontData" id=10]
 font_path = "res://assets/Fonts/kenvector_future.ttf"
@@ -74,6 +75,20 @@ size = 100
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 12 )
+
+[sub_resource type="DynamicFontData" id=16]
+font_path = "res://assets/Fonts/kenvector_future.ttf"
+
+[sub_resource type="DynamicFont" id=17]
+size = 130
+font_data = SubResource( 16 )
+
+[sub_resource type="DynamicFontData" id=18]
+font_path = "res://assets/Fonts/kenvector_future.ttf"
+
+[sub_resource type="DynamicFont" id=19]
+size = 80
+font_data = SubResource( 18 )
 
 [sub_resource type="Gradient" id=14]
 colors = PoolColorArray( 0.0193024, 0.647625, 0.988281, 1, 0, 0, 0, 1 )
@@ -125,10 +140,11 @@ flip_v = true
 [node name="Character" parent="." instance=ExtResource( 4 )]
 position = Vector2( 265, 1338 )
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="StarsLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="Stars3" type="Particles2D" parent="CanvasLayer2"]
+[node name="Stars3" type="Particles2D" parent="StarsLayer"]
+visible = false
 position = Vector2( 510, 960 )
 emitting = false
 amount = 20
@@ -136,7 +152,7 @@ lifetime = 5.0
 process_material = SubResource( 7 )
 texture = ExtResource( 5 )
 
-[node name="Stars" type="CPUParticles2D" parent="CanvasLayer2"]
+[node name="Stars" type="CPUParticles2D" parent="StarsLayer"]
 visible = false
 position = Vector2( 510, 960 )
 emitting = false
@@ -151,9 +167,10 @@ scale_amount_random = 0.4
 scale_amount_curve = SubResource( 8 )
 color_ramp = SubResource( 9 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GuiLayer" type="CanvasLayer" parent="."]
 
-[node name="Score" type="Label" parent="CanvasLayer"]
+[node name="Score" type="Label" parent="GuiLayer"]
+visible = false
 margin_left = 1000.0
 margin_right = 1075.0
 margin_bottom = 151.0
@@ -162,18 +179,18 @@ custom_fonts/font = SubResource( 11 )
 text = "0"
 align = 2
 
-[node name="StartScreen" type="Control" parent="CanvasLayer"]
+[node name="StartScreen" type="Control" parent="GuiLayer"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="BtnStart" type="Button" parent="CanvasLayer/StartScreen"]
+[node name="BtnStart" type="Button" parent="GuiLayer/StartScreen"]
 margin_right = 1080.0
 margin_bottom = 1920.0
 custom_fonts/font = SubResource( 11 )
 text = "Start"
 flat = true
 
-[node name="HighScore" type="Label" parent="CanvasLayer/StartScreen"]
+[node name="HighScore" type="Label" parent="GuiLayer/StartScreen"]
 margin_right = 1080.0
 margin_bottom = 693.0
 custom_fonts/font = SubResource( 13 )
@@ -181,6 +198,96 @@ text = "Best score
  0"
 align = 1
 valign = 1
+
+[node name="OverScreen" type="ColorRect" parent="GuiLayer"]
+visible = false
+margin_right = 1080.0
+margin_bottom = 1920.0
+color = Color( 0, 0, 0, 0.627451 )
+
+[node name="MarginContainer" type="MarginContainer" parent="GuiLayer/OverScreen"]
+margin_top = 240.0
+margin_right = 1080.0
+margin_bottom = 240.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GuiLayer/OverScreen/MarginContainer"]
+margin_right = 1080.0
+margin_bottom = 627.0
+
+[node name="Label" type="Label" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer"]
+margin_right = 1080.0
+margin_bottom = 147.0
+custom_fonts/font = SubResource( 17 )
+custom_colors/font_color = Color( 0.752941, 0.466667, 0.27451, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 10
+custom_constants/shadow_offset_y = 10
+text = "Game Over"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer"]
+margin_top = 151.0
+margin_right = 1080.0
+margin_bottom = 335.0
+
+[node name="Label" type="Label" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer"]
+margin_right = 1080.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.752941, 0.733333, 0.254902, 1 )
+text = "Score"
+align = 1
+valign = 1
+
+[node name="LblScore" type="Label" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer"]
+margin_top = 94.0
+margin_right = 1080.0
+margin_bottom = 184.0
+custom_fonts/font = ExtResource( 6 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer"]
+margin_top = 339.0
+margin_right = 1080.0
+margin_bottom = 523.0
+
+[node name="Label" type="Label" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer2"]
+margin_right = 1080.0
+margin_bottom = 90.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0.752941, 0.733333, 0.254902, 1 )
+text = "High score"
+align = 1
+valign = 1
+
+[node name="LblHighScore" type="Label" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer/VBoxContainer2"]
+margin_top = 94.0
+margin_right = 1080.0
+margin_bottom = 184.0
+custom_fonts/font = ExtResource( 6 )
+text = "10"
+align = 1
+valign = 1
+
+[node name="BtnRestart" type="Button" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer"]
+visible = false
+margin_top = 527.0
+margin_right = 1080.0
+margin_bottom = 623.0
+custom_fonts/font = SubResource( 19 )
+text = "Tap to restart"
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="GuiLayer/OverScreen/MarginContainer/VBoxContainer"]
+margin_top = 627.0
+margin_right = 1080.0
+margin_bottom = 627.0
+
+[node name="Timer" type="Timer" parent="GuiLayer/OverScreen"]
+one_shot = true
 
 [node name="ParallaxBckgrd" type="ParallaxBackground" parent="."]
 layer = -2
@@ -206,49 +313,51 @@ scroll_base_scale = Vector2( 1, 0.1 )
 [node name="Cloud1" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 57.7583, 425.717 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Cloud3" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( -828.097, -2431.17 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 speed = 15
 
 [node name="Cloud2" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 1052.43, -1207.96 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 speed = 5
 going_right = false
 
 [node name="Cloud7" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 1273.9, -2839.41 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 speed = 5
 going_right = false
 
 [node name="Cloud4" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 432.333, -418.07 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 speed = 5
 
 [node name="Cloud5" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( -338.029, -1394.33 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="Cloud6" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( -677.607, -3505.62 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 [connection signal="body_entered" from="Camera2D/Underground/StaticBody2D" to="." method="_on_StaticBody2D_body_entered"]
-[connection signal="pressed" from="CanvasLayer/StartScreen/BtnStart" to="." method="_on_Btn_Start_pressed"]
+[connection signal="pressed" from="GuiLayer/StartScreen/BtnStart" to="." method="_on_Btn_Start_pressed"]
+[connection signal="pressed" from="GuiLayer/OverScreen/MarginContainer/VBoxContainer/BtnRestart" to="." method="_on_BtnRestart_pressed"]
+[connection signal="timeout" from="GuiLayer/OverScreen/Timer" to="." method="_on_Timer_timeout"]
