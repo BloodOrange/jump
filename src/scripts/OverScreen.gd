@@ -7,13 +7,14 @@ extends ColorRect
 export var high_score = 0 setget set_high_score
 export var score = 0 setget set_score
 
-onready var torch_default_texture = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft.texture
+var torch_off_texture = preload("res://assets/World1/Items/torch.png")
+var torch_animated_texture = preload("res://assets/light_animation_gameover.tres")
 
 onready var restart_node = $MarginContainer/VBoxContainer/CenterContainer/BtnRestart
 onready var score_node = $MarginContainer/VBoxContainer/VBoxContainer/LblScore
 onready var high_score_node = $MarginContainer/VBoxContainer/VBoxContainer2/LblHighScore
-onready var light_left_node = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft/AnimationPlayer
-onready var light_right_node = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight/AnimationPlayer2
+onready var light_left_node = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft
+onready var light_right_node = $MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight
 
 signal restart_game
 
@@ -34,13 +35,11 @@ func show():
 	restart_node.hide()
 	
 	if score > high_score:
-		light_left_node.play("light")
-		light_right_node.play("light")
+		light_left_node.texture = torch_animated_texture
+		light_right_node.texture = torch_animated_texture
 	else:
-		light_left_node.stop()
-		light_left_node.get_parent().texture = torch_default_texture
-		light_right_node.stop()
-		light_right_node.get_parent().texture = torch_default_texture
+		light_left_node.texture = torch_off_texture
+		light_right_node.texture = torch_off_texture
 	
 	$Timer.start()
 

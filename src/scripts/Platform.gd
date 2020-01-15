@@ -4,7 +4,7 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-const LIGHT_ANIMATION = ""#preload("res://assets/light_animation.tres")
+const LIGHT_ANIMATION = preload("res://assets/light_animation.tres")
 
 const GRASS_ONCE = preload("res://assets/World1/Platforms/grassHalf.png")
 const GRASS_LEFT = preload("res://assets/World1/Platforms/grassHalfLeft.png")

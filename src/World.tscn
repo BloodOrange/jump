@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/World1/Items/cloud2.png" type="Texture" id=10]
 [ext_resource path="res://OverScreen.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/font_score_value.tres" type="DynamicFont" id=12]
+[ext_resource path="res://assets/World1/Items/signRight.png" type="Texture" id=13]
 [ext_resource path="res://scripts/Cloud.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -65,6 +66,11 @@ position = Vector2( 0, 1509 )
 texture = ExtResource( 3 )
 centered = false
 flip_v = true
+
+[node name="signRight" type="Sprite" parent="Ground"]
+position = Vector2( 85, -150 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 13 )
 
 [node name="Platforms" type="Node2D" parent="."]
 
@@ -198,7 +204,7 @@ texture = ExtResource( 10 )
 script = ExtResource( 14 )
 
 [node name="Asteroid1" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
-position = Vector2( 519.357, -15473.5 )
+position = Vector2( 519.357, -8000 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 script = ExtResource( 14 )

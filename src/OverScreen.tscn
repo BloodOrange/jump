@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/OverScreen.gd" type="Script" id=1]
-[ext_resource path="res://assets/World1/Items/torch.png" type="Texture" id=2]
-[ext_resource path="res://assets/World1/Items/tochLit.png" type="Texture" id=3]
+[ext_resource path="res://assets/light_animation_gameover.tres" type="Texture" id=2]
 [ext_resource path="res://assets/font_score_label.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/font_score_value.tres" type="DynamicFont" id=6]
 
@@ -14,40 +13,6 @@ size = 130
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 1 )
-
-[sub_resource type="Animation" id=3]
-resource_name = "light"
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ null, null, null ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "light"
-length = 0.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ null, null, null ]
-}
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
@@ -113,10 +78,7 @@ alignment = 1
 margin_left = 298.0
 margin_right = 368.0
 margin_bottom = 90.0
-texture = ExtResource( 3 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft"]
-anims/light = SubResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 margin_left = 372.0
@@ -133,9 +95,6 @@ margin_left = 711.0
 margin_right = 781.0
 margin_bottom = 90.0
 texture = ExtResource( 2 )
-
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightRight"]
-anims/light = SubResource( 4 )
 
 [node name="LblScore" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 margin_top = 94.0
