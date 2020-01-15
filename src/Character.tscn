@@ -1,52 +1,17 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/Character.gd" type="Script" id=1]
-[ext_resource path="res://assets/Player/p3_jump.png" type="Texture" id=2]
-[ext_resource path="res://assets/Player/p3_duck.png" type="Texture" id=3]
-[ext_resource path="res://assets/Player/p3_front.png" type="Texture" id=4]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk01.png" type="Texture" id=5]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk02.png" type="Texture" id=6]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk03.png" type="Texture" id=7]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk04.png" type="Texture" id=8]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk05.png" type="Texture" id=9]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk06.png" type="Texture" id=10]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk07.png" type="Texture" id=11]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk08.png" type="Texture" id=12]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk09.png" type="Texture" id=13]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk10.png" type="Texture" id=14]
-[ext_resource path="res://assets/Player/p3_walk/PNG/p3_walk11.png" type="Texture" id=15]
-[ext_resource path="res://assets/Tiles/dirtCaveRockSmall.png" type="Texture" id=16]
+[ext_resource path="res://assets/Player/CharacterPinkAnimation.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://assets/Tiles/dirtCaveRockSmall.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50.2105, 91.8947 )
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "grip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "stay",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "walk",
-"speed": 30.0
-} ]
-
-[sub_resource type="Curve" id=9]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0134376, 0, 0, Vector2( 1, 0 ), -1.64817, 0.0, 0, 0 ]
 
 [node name="Character" type="KinematicBody2D"]
+collision_mask = 7
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -54,22 +19,22 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
-frames = SubResource( 2 )
+frames = ExtResource( 2 )
 animation = "walk"
-frame = 3
+frame = 2
 playing = true
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+[node name="DustParticle" type="CPUParticles2D" parent="."]
 position = Vector2( 0, 85 )
 amount = 10
 lifetime = 0.7
 explosiveness = 0.2
 randomness = 1.0
 local_coords = false
-texture = ExtResource( 16 )
+texture = ExtResource( 3 )
 emission_shape = 2
 emission_rect_extents = Vector2( 20, 10 )
 gravity = Vector2( 0, 20 )
 scale_amount = 0.5
 scale_amount_random = 1.0
-scale_amount_curve = SubResource( 9 )
+scale_amount_curve = SubResource( 2 )

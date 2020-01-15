@@ -19,9 +19,9 @@ config/name="Jump"
 run/main_scene="res://World.tscn"
 config/icon="res://hud_p3Alt.png"
 
-[debug]
+[autoload]
 
-settings/stdout/print_fps=true
+PlayerInfo="*res://scripts/PlayerInfo.gd"
 
 [display]
 

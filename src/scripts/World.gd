@@ -10,62 +10,68 @@ const DEFAULT_SPEED_FALLEN = 60
 
 signal beat_score
 
-var savegame = File.new()
-var save_path = "user://savegame.save"
-var save_data = {"highscore": 0}
-
 export var speed_fallen = DEFAULT_SPEED_FALLEN
-
-var high_score = 0
-var current_score = 0
 
 var start_game_delay = 0
 var start_game = false
+var last_platform_generated
 var last_platform
 
 var Platform = preload("res://Platform.tscn")
 var rng = RandomNumberGenerator.new()
 
+onready var charactersList = $GuiLayer/StartScreen/PopupPanel/CenterContainer/ItemList
+
+const is_server = true
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		print("Current player: " + PlayerInfo.current_player)
+		print("High score: " + str(PlayerInfo.high_score))
+		print("Platforms touched: " + str(PlayerInfo.platform_touch))
+		print("Jump count: " + str(PlayerInfo.jump_count))
+		print("Vibrate enable: " + str(PlayerInfo.vibrate_enabled))
+		print("Sound enable: " + str(PlayerInfo.sound_enabled))
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
 	
-	if not savegame.file_exists(save_path):
-		create_file()
-	else:
-		read_highscore()
+	PlayerInfo.connect("high_score_changed", self, "_on_high_score_changed")
+	
+	PlayerInfo.load_info()
+	
+#	if is_server:
+#		var peer = NetworkedMultiplayerENet.new()
+#		peer.create_server("6060", 4)
+#		get_tree().setNetwork_peer(peer)
+#	else:
+#		var peer = NetworkedMultiplayerENet.new()
+#		peer.create_client("192.168.1.16", "6060")
+#		get_tree().set_network_peer(peer)
 	
 	$Character.connect("on_platform_run", self, "on_platform")
+	$GuiLayer/StartScreen.connect("start_game", self, "_on_start_game")
+	
 	reset_world()
 
-func update_highscore():
-	$GuiLayer/StartScreen/HighScore.text = "Best score\n" + str(high_score)
-
-func create_file():
-	savegame.open(save_path, File.WRITE)
-	savegame.store_var(save_data)
-	savegame.close()
-
-func save_highscore():
-	save_data["highscore"] = high_score
-	savegame.open(save_path, File.WRITE)
-	savegame.store_var(save_data)
-	savegame.close()
-
-func read_highscore():
-	savegame.open(save_path, File.READ) #open the file
-	save_data = savegame.get_var() #get the value
-	savegame.close() #close the file
-	high_score = save_data["highscore"] #return the value
+func _on_high_score_changed():
 	update_highscore()
 
+func update_highscore():
+	$GuiLayer/StartScreen/HighScore.text = "Best score\n" + str(PlayerInfo.high_score)
+
 func on_platform(platform_node):
-	if platform_node.number >= current_score:
-		current_score = platform_node.number
-		$GuiLayer/Score.text = str(current_score)
+	if last_platform.number != platform_node.number:
+		PlayerInfo.platform_touch += 1
+	
+	last_platform = platform_node
+	
+	if platform_node.number >= PlayerInfo.current_score:
+		PlayerInfo.current_score = platform_node.number
+		$GuiLayer/Score.text = str(PlayerInfo.current_score)
 		
-		if current_score > high_score:
+		if PlayerInfo.current_score > PlayerInfo.high_score:
 			emit_signal("beat_score")
 
 func clear_platforms():
@@ -77,6 +83,7 @@ func clear_platforms():
 	ground.length_platform = 10
 	ground.position = Vector2(540, 1500)
 	$Platforms.call_deferred("add_child", ground)
+	last_platform_generated = ground
 	last_platform = ground
 
 func stop_world():
@@ -123,10 +130,10 @@ func _process(delta):
 		$Camera2D.position.y = $Character.position.y - 400
 
 func generate_platform_line():
-	var number = last_platform.number + 1
+	var number = last_platform_generated.number + 1
 	var node = Platform.instance()
 	
-	if high_score != 0 and number == high_score + 1:
+	if PlayerInfo.high_score != 0 and number == PlayerInfo.high_score + 1:
 		node.is_highscore = true
 		connect("beat_score", node, "turn_on_light")
 
@@ -140,17 +147,18 @@ func generate_platform_line():
 		node.set_theme("sand")
 	node.length_platform = rng.randi_range(2, 5)
 	node.number = number
-	node.position.y = last_platform.position.y - PLATFORM_SPACE
+	node.position.y = last_platform_generated.position.y - PLATFORM_SPACE
 	var length_pixel_plaform = node.BLOCK_SIZE * node.length_platform * node.scale.x
 	node.position.x = rng.randf_range(length_pixel_plaform + 10, 1080 - length_pixel_plaform - 10)
 	$Platforms.call_deferred("add_child", node)
-	last_platform = node
+	last_platform_generated = node
 	
 	if number == 150:
 		$StarsLayer/Stars.emitting = true
 		$StarsLayer/Stars.show()
 
 func generate_world():
+# warning-ignore:unused_variable
 	for i in range(NB_PLATFORMS):
 		generate_platform_line()
 
@@ -163,15 +171,17 @@ func _on_StaticBody2D_body_entered(body):
 		start_game = false
 		start_game_delay = 0
 		
+		$Character.die()
+		
 		stop_world()
-		$GuiLayer/OverScreen.score = current_score
-		$GuiLayer/OverScreen.high_score = high_score
+		$GuiLayer/OverScreen.score = PlayerInfo.current_score
+		$GuiLayer/OverScreen.high_score = PlayerInfo.high_score
 		
-		if current_score > high_score:
-			high_score = current_score
+		if PlayerInfo.current_score > PlayerInfo.high_score:
+			PlayerInfo.high_score = PlayerInfo.current_score
 			update_highscore()
-			save_highscore()
-		
+
+		PlayerInfo.save_info()
 		$GuiLayer/OverScreen.show()
 	else:
 		# Maybe not free to keep the level raising
@@ -179,9 +189,9 @@ func _on_StaticBody2D_body_entered(body):
 		body.get_parent().free()
 		generate_platform_line()
 
-func _on_Btn_Start_pressed():
-	current_score = 0
-	$GuiLayer/Score.text = str(current_score)
+func _on_start_game():
+	PlayerInfo.current_score = 0
+	$GuiLayer/Score.text = str(PlayerInfo.current_score)
 	start_game = true
 	$GuiLayer/StartScreen.hide()
 	$GuiLayer/Score.show()
@@ -192,4 +202,3 @@ func _on_Restart_game():
 	$GuiLayer/StartScreen.show()
 	
 	reset_world()
-
