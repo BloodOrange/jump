@@ -76,7 +76,7 @@ func on_platform(platform_node):
 
 func clear_platforms():
 	for p in $Platforms.get_children():
-		p.free()
+		p.queue_free()
 	
 	# Make ground platform
 	var ground = Platform.instance()

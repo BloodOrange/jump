@@ -1,17 +1,18 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://Wall.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/Tiles/grassFull.png" type="Texture" id=3]
+[ext_resource path="res://assets/World1/Items/grassFull.png" type="Texture" id=3]
 [ext_resource path="res://Character.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/Items/star.png" type="Texture" id=5]
+[ext_resource path="res://assets/World1/Items/star.png" type="Texture" id=5]
 [ext_resource path="res://StartScreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/World1/Items/dirtCaveRockLarge.png" type="Texture" id=7]
+[ext_resource path="res://assets/World1/Items/cloud3.png" type="Texture" id=8]
+[ext_resource path="res://assets/World1/Items/cloud1.png" type="Texture" id=9]
+[ext_resource path="res://assets/World1/Items/cloud2.png" type="Texture" id=10]
 [ext_resource path="res://OverScreen.tscn" type="PackedScene" id=11]
 [ext_resource path="res://assets/font_score_value.tres" type="DynamicFont" id=12]
-[ext_resource path="res://assets/Items/cloud1.png" type="Texture" id=13]
 [ext_resource path="res://scripts/Cloud.gd" type="Script" id=14]
-[ext_resource path="res://assets/Items/cloud3.png" type="Texture" id=15]
-[ext_resource path="res://assets/Items/cloud2.png" type="Texture" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 540, 10 )
@@ -151,20 +152,20 @@ scroll_base_scale = Vector2( 1, 0.1 )
 [node name="Cloud1" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 57.7583, 425.717 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 13 )
+texture = ExtResource( 9 )
 script = ExtResource( 14 )
 
 [node name="Cloud3" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( -828.097, -2431.17 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 13 )
+texture = ExtResource( 9 )
 script = ExtResource( 14 )
 speed = 15
 
 [node name="Cloud2" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 1052.43, -1207.96 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 15 )
+texture = ExtResource( 8 )
 script = ExtResource( 14 )
 speed = 5
 going_right = false
@@ -172,7 +173,7 @@ going_right = false
 [node name="Cloud7" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 1273.9, -2839.41 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 15 )
+texture = ExtResource( 8 )
 script = ExtResource( 14 )
 speed = 5
 going_right = false
@@ -180,20 +181,28 @@ going_right = false
 [node name="Cloud4" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( 432.333, -418.07 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 15 )
+texture = ExtResource( 8 )
 script = ExtResource( 14 )
 speed = 5
 
 [node name="Cloud5" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
-position = Vector2( -338.029, -1394.33 )
+position = Vector2( -347.105, -1394.33 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 16 )
+texture = ExtResource( 10 )
 script = ExtResource( 14 )
 
 [node name="Cloud6" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
 position = Vector2( -677.607, -3505.62 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 16 )
+texture = ExtResource( 10 )
 script = ExtResource( 14 )
+
+[node name="Asteroid1" type="Sprite" parent="ParallaxBckgrd2/Clouds"]
+position = Vector2( 519.357, -15473.5 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+script = ExtResource( 14 )
+speed = 0
+rotation_speed = 5
 [connection signal="body_entered" from="Camera2D/Underground/StaticBody2D" to="." method="_on_StaticBody2D_body_entered"]
 [connection signal="restart_game" from="GuiLayer/OverScreen" to="." method="_on_Restart_game"]

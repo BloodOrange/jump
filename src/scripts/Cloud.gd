@@ -2,6 +2,7 @@ extends Sprite
 
 export var speed = 7
 export var going_right = true
+export var rotation_speed = 0
 onready var init_position = position
 # Declare member variables here. Examples:
 # var a = 2
@@ -17,6 +18,7 @@ func _process(delta):
 		position.x += speed*delta
 	else:
 		position.x -= speed*delta
-		
+	rotation_degrees += rotation_speed*delta
+	
 func reset():
 	position = init_position

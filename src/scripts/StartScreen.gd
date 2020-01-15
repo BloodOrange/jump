@@ -1,16 +1,10 @@
 extends Control
 
-var Alien_Blue_Badge = preload("res://assets/Player/alienBlue_badge1.png")
-var Alien_Green_Badge = preload("res://assets/Player/alienGreen_badge1.png")
-var Alien_Pink_Badge = preload("res://assets/Player/alienPink_badge1.png")
-var Alien_Yellow_Badge = preload("res://assets/Player/alienYellow_badge1.png")
+var Alien_Blue_Badge = preload("res://assets/Player/AlienBlue/alienBlue_badge1.png")
+var Alien_Green_Badge = preload("res://assets/Player/AlienGreen/alienGreen_badge1.png")
+var Alien_Pink_Badge = preload("res://assets/Player/AlienPink/alienPink_badge1.png")
+var Alien_Yellow_Badge = preload("res://assets/Player/AlienYellow/alienYellow_badge1.png")
 var Zombie_Badge = preload("res://assets/Player/Zombie/Poses/head_focus.png")
-
-var Alien_Blue_Animation = preload("res://assets/Player/CharacterBlueAnimation.tres")
-var Alien_Green_Animation = preload("res://assets/Player/CharacterGreenAnimation.tres")
-var Alien_Pink_Animation = preload("res://assets/Player/CharacterPinkAnimation.tres")
-var Alien_Yellow_Animation = preload("res://assets/Player/CharacterYellowAnimation.tres")
-var Zombie_Animation = preload("res://assets/Player/CharacterZombieAnimation.tres")
 
 var Vibrate_Icon = preload("res://assets/Icons/vibrating-smartphone.png")
 var No_Vibrate_Icon = preload("res://assets/Icons/novibrating-smartphone.png")
@@ -54,7 +48,6 @@ func _on_Btn_Character_selection_pressed():
 	$PopupPanel.popup()
 
 func _on_ItemList_Character_selected(index):
-	var animation = Alien_Green_Animation
 	var alien = PlayerInfo.ZOMBIE
 	
 	if index == 0:

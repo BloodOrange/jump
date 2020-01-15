@@ -1,16 +1,16 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://assets/Player/alienPink_badge1.png" type="Texture" id=1]
 [ext_resource path="res://assets/Player/Zombie/Poses/head_focus.png" type="Texture" id=2]
-[ext_resource path="res://assets/Player/alienBlue_badge1.png" type="Texture" id=3]
-[ext_resource path="res://assets/Player/alienYellow_badge1.png" type="Texture" id=4]
-[ext_resource path="res://assets/Player/alienGreen_badge1.png" type="Texture" id=5]
+[ext_resource path="res://assets/Player/AlienBlue/alienBlue_badge1.png" type="Texture" id=3]
+[ext_resource path="res://assets/Player/AlienYellow/alienYellow_badge1.png" type="Texture" id=4]
+[ext_resource path="res://assets/Player/AlienGreen/alienGreen_badge1.png" type="Texture" id=5]
 [ext_resource path="res://scripts/StartScreen.gd" type="Script" id=6]
 [ext_resource path="res://assets/Icons/vibrating-smartphone.png" type="Texture" id=7]
 [ext_resource path="res://assets/StartScreenButton.tres" type="StyleBox" id=8]
 [ext_resource path="res://assets/Icons/sideswipe.png" type="Texture" id=9]
 [ext_resource path="res://assets/Icons/speaker.png" type="Texture" id=10]
 [ext_resource path="res://assets/Icons/cog.png" type="Texture" id=11]
+[ext_resource path="res://assets/Player/AlienPink/alienPink_badge1.png" type="Texture" id=12]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -40,11 +40,11 @@ outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = SubResource( 8 )
 
+[sub_resource type="StyleBoxEmpty" id=10]
+
 [sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="StyleBoxEmpty" id=12]
-
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=12]
 resource_name = "drawer_shown"
 length = 0.5
 tracks/0/type = "bezier"
@@ -88,16 +88,16 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5 )
 }
 
+[sub_resource type="StyleBoxEmpty" id=13]
+
 [sub_resource type="StyleBoxEmpty" id=14]
 
-[sub_resource type="StyleBoxEmpty" id=15]
-
-[sub_resource type="DynamicFontData" id=17]
+[sub_resource type="DynamicFontData" id=15]
 font_path = "res://assets/Fonts/kenpixel.ttf"
 
 [sub_resource type="DynamicFont" id=16]
 size = 75
-font_data = SubResource( 17 )
+font_data = SubResource( 15 )
 
 [node name="StartScreen" type="Control"]
 anchor_right = 1.0
@@ -139,7 +139,7 @@ custom_styles/focus = ExtResource( 8 )
 custom_styles/disabled = ExtResource( 8 )
 custom_styles/normal = ExtResource( 8 )
 toggle_mode = true
-icon = ExtResource( 1 )
+icon = ExtResource( 12 )
 expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -159,9 +159,10 @@ __meta__ = {
 visible = false
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -181.0
-margin_right = -33.0
-margin_bottom = 148.0
+margin_left = -1071.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 690.0
 custom_styles/hover = ExtResource( 8 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = ExtResource( 8 )
@@ -175,23 +176,23 @@ __meta__ = {
 [node name="CenterContainer" type="CenterContainer" parent="PopupPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ItemList" type="ItemList" parent="PopupPanel/CenterContainer"]
-margin_left = 186.0
-margin_top = 203.0
-margin_right = 886.0
-margin_bottom = 489.0
+margin_left = 180.0
+margin_top = 340.0
+margin_right = 880.0
+margin_bottom = 340.0
 rect_min_size = Vector2( 700, 0 )
-custom_styles/bg_focus = SubResource( 11 )
-custom_styles/bg = SubResource( 12 )
-items = [ "", ExtResource( 1 ), false, "", ExtResource( 3 ), false, "", ExtResource( 5 ), false, "", ExtResource( 4 ), false, "", ExtResource( 2 ), false ]
+custom_styles/bg_focus = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
+items = [ "", ExtResource( 12 ), false, "", ExtResource( 3 ), false, "", ExtResource( 5 ), false, "", ExtResource( 4 ), false, "", ExtResource( 2 ), false ]
 allow_reselect = true
 auto_height = true
 max_columns = 3
@@ -206,10 +207,10 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -224,7 +225,7 @@ alignment = 1
 margin_right = 357.0
 margin_bottom = 346.0
 size_flags_horizontal = 3
-texture_normal = ExtResource( 1 )
+texture_normal = ExtResource( 12 )
 stretch_mode = 5
 
 [node name="TextureButton2" type="TextureButton" parent="PopupPanel/VBoxContainer/HBoxContainer"]
@@ -265,7 +266,7 @@ __meta__ = {
 }
 
 [node name="OpenPanelAnimation" type="AnimationPlayer" parent="Panel"]
-anims/drawer_shown = SubResource( 13 )
+anims/drawer_shown = SubResource( 12 )
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 anchor_right = 1.0
@@ -277,39 +278,39 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer"]
 margin_left = 20.0
-margin_right = 674.0
-margin_bottom = 157.0
+margin_right = 464.0
+margin_bottom = 128.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BtnVibrate" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
 margin_right = 128.0
-margin_bottom = 157.0
-custom_styles/hover = SubResource( 14 )
-custom_styles/pressed = SubResource( 14 )
-custom_styles/focus = SubResource( 14 )
-custom_styles/disabled = SubResource( 14 )
-custom_styles/normal = SubResource( 14 )
+margin_bottom = 128.0
+custom_styles/hover = SubResource( 13 )
+custom_styles/pressed = SubResource( 13 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/disabled = SubResource( 13 )
+custom_styles/normal = SubResource( 13 )
 icon = ExtResource( 7 )
 flat = true
 
 [node name="BtnSound" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
 margin_left = 132.0
 margin_right = 260.0
-margin_bottom = 157.0
-custom_styles/hover = SubResource( 15 )
-custom_styles/pressed = SubResource( 15 )
-custom_styles/focus = SubResource( 15 )
-custom_styles/disabled = SubResource( 15 )
-custom_styles/normal = SubResource( 15 )
+margin_bottom = 128.0
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 14 )
+custom_styles/disabled = SubResource( 14 )
+custom_styles/normal = SubResource( 14 )
 icon = ExtResource( 10 )
 flat = true
 
 [node name="BtnRAZ" type="Button" parent="Panel/MarginContainer/HBoxContainer"]
 margin_left = 264.0
 margin_right = 444.0
-margin_bottom = 157.0
+margin_bottom = 128.0
 custom_fonts/font = SubResource( 16 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "RAZ"

@@ -4,37 +4,37 @@ extends Node2D
 # var a = 2
 # var b = "text"
 
-const LIGHT_ANIMATION = preload("res://assets/light_animation.tres")
+const LIGHT_ANIMATION = ""#preload("res://assets/light_animation.tres")
 
-const GRASS_ONCE = preload("res://assets/Tiles/grassHalf.png")
-const GRASS_LEFT = preload("res://assets/Tiles/grassHalfLeft.png")
-const GRASS_MID  = preload("res://assets/Tiles/grassHalfMid.png")
-const GRASS_RIGHT = preload("res://assets/Tiles/grassHalfRight.png")
+const GRASS_ONCE = preload("res://assets/World1/Platforms/grassHalf.png")
+const GRASS_LEFT = preload("res://assets/World1/Platforms/grassHalfLeft.png")
+const GRASS_MID  = preload("res://assets/World1/Platforms/grassHalfMid.png")
+const GRASS_RIGHT = preload("res://assets/World1/Platforms/grassHalfRight.png")
 
-const SAND_ONCE = preload("res://assets/Tiles/sandHalf.png")
-const SAND_LEFT = preload("res://assets/Tiles/sandHalfLeft.png")
-const SAND_MID  = preload("res://assets/Tiles/sandHalfMid.png")
-const SAND_RIGHT = preload("res://assets/Tiles/sandHalfRight.png")
+const SAND_ONCE = preload("res://assets/World1/Platforms/sandHalf.png")
+const SAND_LEFT = preload("res://assets/World1/Platforms/sandHalfLeft.png")
+const SAND_MID  = preload("res://assets/World1/Platforms/sandHalfMid.png")
+const SAND_RIGHT = preload("res://assets/World1/Platforms/sandHalfRight.png")
 
-const CASTLE_ONCE = preload("res://assets/Tiles/castleHalf.png")
-const CASTLE_LEFT = preload("res://assets/Tiles/castleHalfLeft.png")
-const CASTLE_MID  = preload("res://assets/Tiles/castleHalfMid.png")
-const CASTLE_RIGHT = preload("res://assets/Tiles/castleHalfRight.png")
+const CASTLE_ONCE = preload("res://assets/World1/Platforms/castleHalf.png")
+const CASTLE_LEFT = preload("res://assets/World1/Platforms/castleHalfLeft.png")
+const CASTLE_MID  = preload("res://assets/World1/Platforms/castleHalfMid.png")
+const CASTLE_RIGHT = preload("res://assets/World1/Platforms/castleHalfRight.png")
 
-const DIRT_ONCE = preload("res://assets/Tiles/dirtHalf.png")
-const DIRT_LEFT = preload("res://assets/Tiles/dirtHalfLeft.png")
-const DIRT_MID  = preload("res://assets/Tiles/dirtHalfMid.png")
-const DIRT_RIGHT = preload("res://assets/Tiles/dirtHalfRight.png")
+const DIRT_ONCE = preload("res://assets/World1/Platforms/dirtHalf.png")
+const DIRT_LEFT = preload("res://assets/World1/Platforms/dirtHalfLeft.png")
+const DIRT_MID  = preload("res://assets/World1/Platforms/dirtHalfMid.png")
+const DIRT_RIGHT = preload("res://assets/World1/Platforms/dirtHalfRight.png")
 
-const SNOW_ONCE = preload("res://assets/Tiles/snowHalf.png")
-const SNOW_LEFT = preload("res://assets/Tiles/snowHalfLeft.png")
-const SNOW_MID  = preload("res://assets/Tiles/snowHalfMid.png")
-const SNOW_RIGHT = preload("res://assets/Tiles/snowHalfRight.png")
+const SNOW_ONCE = preload("res://assets/World1/Platforms/snowHalf.png")
+const SNOW_LEFT = preload("res://assets/World1/Platforms/snowHalfLeft.png")
+const SNOW_MID  = preload("res://assets/World1/Platforms/snowHalfMid.png")
+const SNOW_RIGHT = preload("res://assets/World1/Platforms/snowHalfRight.png")
 
-const STONE_ONCE = preload("res://assets/Tiles/stoneHalf.png")
-const STONE_LEFT = preload("res://assets/Tiles/stoneHalfLeft.png")
-const STONE_MID  = preload("res://assets/Tiles/stoneHalfMid.png")
-const STONE_RIGHT = preload("res://assets/Tiles/stoneHalfRight.png")
+const STONE_ONCE = preload("res://assets/World1/Platforms/stoneHalf.png")
+const STONE_LEFT = preload("res://assets/World1/Platforms/stoneHalfLeft.png")
+const STONE_MID  = preload("res://assets/World1/Platforms/stoneHalfMid.png")
+const STONE_RIGHT = preload("res://assets/World1/Platforms/stoneHalfRight.png")
 
 const BLOCK_SIZE = 70
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/OverScreen.gd" type="Script" id=1]
-[ext_resource path="res://assets/Tiles/torch.png" type="Texture" id=2]
-[ext_resource path="res://assets/Tiles/tochLit.png" type="Texture" id=3]
-[ext_resource path="res://assets/Tiles/tochLit2.png" type="Texture" id=4]
+[ext_resource path="res://assets/World1/Items/torch.png" type="Texture" id=2]
+[ext_resource path="res://assets/World1/Items/tochLit.png" type="Texture" id=3]
 [ext_resource path="res://assets/font_score_label.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/font_score_value.tres" type="DynamicFont" id=6]
 
@@ -30,7 +29,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ]
+"values": [ null, null, null ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -47,18 +46,18 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ) ]
+"values": [ null, null, null ]
 }
 
-[sub_resource type="StyleBoxEmpty" id=12]
+[sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=13]
+[sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="StyleBoxEmpty" id=16]
+[sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=14]
+[sub_resource type="StyleBoxEmpty" id=8]
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxEmpty" id=9]
 
 [sub_resource type="DynamicFontData" id=10]
 font_path = "res://assets/Fonts/kenvector_future.ttf"
@@ -72,6 +71,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.784314 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -111,7 +113,7 @@ alignment = 1
 margin_left = 298.0
 margin_right = 368.0
 margin_bottom = 90.0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/TextureLightLeft"]
 anims/light = SubResource( 3 )
@@ -181,11 +183,11 @@ margin_top = 317.0
 margin_right = 962.0
 margin_bottom = 407.0
 size_flags_vertical = 3
-custom_styles/hover = SubResource( 12 )
-custom_styles/pressed = SubResource( 13 )
-custom_styles/focus = SubResource( 16 )
-custom_styles/disabled = SubResource( 14 )
-custom_styles/normal = SubResource( 15 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/disabled = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
 custom_fonts/font = SubResource( 11 )
 shortcut_in_tooltip = false
 text = "Tap to restart"

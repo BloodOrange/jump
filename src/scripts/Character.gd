@@ -18,11 +18,11 @@ var gravity = DEFAULT_GRAVITY
 
 onready var character_start_position = position
 
-var Alien_Blue_Animation = preload("res://assets/Player/CharacterBlueAnimation.tres")
-var Alien_Green_Animation = preload("res://assets/Player/CharacterGreenAnimation.tres")
-var Alien_Pink_Animation = preload("res://assets/Player/CharacterPinkAnimation.tres")
-var Alien_Yellow_Animation = preload("res://assets/Player/CharacterYellowAnimation.tres")
-var Zombie_Animation = preload("res://assets/Player/CharacterZombieAnimation.tres")
+var Alien_Blue_Animation = preload("res://assets/Player/AlienBlue/CharacterBlueAnimation.tres")
+var Alien_Green_Animation = preload("res://assets/Player/AlienGreen/CharacterGreenAnimation.tres")
+var Alien_Pink_Animation = preload("res://assets/Player/AlienPink/CharacterPinkAnimation.tres")
+var Alien_Yellow_Animation = preload("res://assets/Player/AlienYellow/CharacterYellowAnimation.tres")
+var Zombie_Animation = preload("res://assets/Player/Zombie/CharacterZombieAnimation.tres")
 
 enum Action {
 	walking,
@@ -188,8 +188,6 @@ func _physics_process(delta):
 		to_fall()
 	
 	move_and_slide(velocity, Vector2(0, -1))
-	
-	var old_action = action
 	
 	update_state()
 	
